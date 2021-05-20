@@ -93,7 +93,7 @@ def registration_request(request):
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
     if request.method == "GET":
-        url = "https://04ec2ae8.us-south.apigw.appdomain.cloud/api/api/dealership"
+        url = "https://04ec2ae8.us-south.apigw.appdomain.cloud/api/dealership"
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
         # Concat all dealer's short name
@@ -105,10 +105,10 @@ def get_dealerships(request):
 def get_dealer_details(request, dealer_id):
     context = {}
     if request.method == 'GET':
-        url = 'hthttps://04ec2ae8.us-south.apigw.appdomain.cloud/api/api/dealership'
+        url = 'hthttps://04ec2ae8.us-south.apigw.appdomain.cloud/api/dealership'
         dealerships = get_dealers_from_cf(url, **({'id':dealer_id}))
         context['dealer'] = dealerships['id' == dealer_id]
-        url = 'https://04ec2ae8.us-south.apigw.appdomain.cloud/api/api/reviews'
+        url = 'https://04ec2ae8.us-south.apigw.appdomain.cloud/api/reviews'
         dealer_reviews = get_dealer_reviews_from_cf(url, dealer_id)
         context['id' == dealer_id, 'reviews'] = dealer_reviews
         return render(request, 'djangoapp/dealer_details.html', context)
@@ -117,13 +117,13 @@ def get_dealer_details(request, dealer_id):
 def add_review(request, dealer_id):
     context = {}
     if request.method == 'GET':
-        url = 'https://04ec2ae8.us-south.apigw.appdomain.cloud/api/api/dealership'
+        url = 'https://04ec2ae8.us-south.apigw.appdomain.cloud/api/dealership'
         dealerships = get_dealers_from_cf(url, **({'id':dealer_id}))
         context['dealer'] = dealerships[0]
         context['cars'] = CarModel.objects.filter(dealer_id=dealer_id)
         return render(request, 'djangoapp/add_review.html', context)
     elif request.method == 'POST':
-        url = 'https://04ec2ae8.us-south.apigw.appdomain.cloud/api/api/reviews'
+        url = 'https://04ec2ae8.us-south.apigw.appdomain.cloud/api/reviews'
         dealer_reviews = get_dealer_reviews_from_cf(url, dealer_id)
         max_id = max([review.id for review in dealer_reviews], default=100)
         new_id = max_id + 1 if max_id >= 100 else max_id + 100
